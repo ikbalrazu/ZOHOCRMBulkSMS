@@ -60,6 +60,8 @@ app.post("/twilioconfiq",(req,res)=>{
         })
         .then(function(message){
             console.log(message.sid);
+            var messagesid = message.sid;
+            res.json({status: "SMS Send Successfully", phone: phonenumber[i], twilionumber, twilioSID, twilioauthtoken, templatemessage, messagesid})
         });
     }
     // const client = new twilio(twilioSID, twilioauthtoken);
@@ -71,19 +73,22 @@ app.post("/twilioconfiq",(req,res)=>{
     //     })
     //     .then((message) => console.log(message.sid));
     // console.log("hello world");
-    res.send({ status: "SMS Send Successfully", phonenumber, twilionumber, twilioSID, twilioauthtoken, templatemessage});
+    //res.send({ status: "SMS Send Successfully", phonenumber, twilionumber, twilioSID, twilioauthtoken, templatemessage,messagesid});
 
 })
 
 
-app.post("/testinvercel",(req,res)=>{
-    const { name, location } = req.body;
-    res.send({ status: "User created successfully by iqbal", name, location });
-})
+// app.post("/testinvercel",(req,res)=>{
+//     const { name, location } = req.body;
+//     res.json({ status: "User created successfully by iqbal", name, location });
+// })
 
 app.get("/sendsms", (req, res) => {
-    res.send("Hello world by iqbal");
+    var name="iqbal"
+    var location="dhaka"
+    res.json([{name,location}]);
     // sendSMS();
+    console.log("sendsms call");
 })
 
 

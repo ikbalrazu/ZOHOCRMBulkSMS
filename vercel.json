@@ -1,0 +1,27 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "./index.js",
+            "use": "@now/node-server"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/sendsms",
+            "dest": "/index.js",
+            "methods": ["GET"]
+        },
+        {
+            "src": "/testinvercel",
+            "dest": "/index.js",
+            "methods": ["POST"]
+        },
+        {
+            "src": "/twilioconfiq",
+            "dest": "/index.js",
+            "methods": ["POST"]
+        }
+        
+    ]
+}

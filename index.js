@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const twilio = require('twilio');
+const bodyparser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -15,10 +16,11 @@ app.use(cors());
 // app.use(cors({ origin: "https://bulksmsfrontend.netlify.app", credentials: false }));
 
 // app.use(cors(corsOptions))
-// app.use(express.json());
+app.use(express.json());
+app.use(bodyparser.urlencoded({ extended: true }));
 
-const accountSid = 'ACadc3ffb43cef495abeafebce2609c137'; // Your Account SID from www.twilio.com/console
-const authToken = '1069b3764bb73164952c4effb0259a96'; // Your Auth Token from www.twilio.com/console
+// const accountSid = 'ACadc3ffb43cef495abeafebce2609c137'; // Your Account SID from www.twilio.com/console
+// const authToken = '1069b3764bb73164952c4effb0259a96'; // Your Auth Token from www.twilio.com/console
 
 
 //const client = new twilio(accountSid, authToken);

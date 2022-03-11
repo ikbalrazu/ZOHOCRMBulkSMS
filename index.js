@@ -63,8 +63,9 @@ app.post("/twilioconfiq",(req,res)=>{
             console.log(message.sid);
             var messagesid = message.sid;
             var SMSno = phonenumber[i];
+            res.json(message);
             //res.json({status: "SMS Send Successfully", phone: phonenumber[i], twilionumber, twilioSID, twilioauthtoken, templatemessage, messagesid})
-            sendSMSinfo.push({"msgSID":messagesid,"smsNumber":SMSno});
+            //sendSMSinfo.push({"msgSID":messagesid,"smsNumber":SMSno});
         });
     }
     // const client = new twilio(twilioSID, twilioauthtoken);
@@ -77,7 +78,7 @@ app.post("/twilioconfiq",(req,res)=>{
     //     .then((message) => console.log(message.sid));
     // console.log("hello world");
     //res.send({ status: "SMS Send Successfully", phonenumber, twilionumber, twilioSID, twilioauthtoken, templatemessage,messagesid});
-    res.send({status: "SMS Send Successfully",sendSMSinfo});
+    //res.send({status: "SMS Send Successfully",sendSMSinfo});
 
 })
 

@@ -60,10 +60,11 @@ app.post("/twilioconfiq",(req,res)=>{
             from: twilionumber
         })
         .then(function(message){
-            console.log(message.sid);
-            var messagesid = message.sid;
-            var SMSno = phonenumber[i];
-            res.json(message);
+            console.log(phonenumber[i], message.sid);
+            //var messagesid = message.sid;
+            sendSMSinfo.push({"Phone":phonenumber[i],"MessageSID":message.sid});
+            // var SMSno = phonenumber[i];
+            // res.json(message);
             //res.json({status: "SMS Send Successfully", phone: phonenumber[i], twilionumber, twilioSID, twilioauthtoken, templatemessage, messagesid})
             //sendSMSinfo.push({"msgSID":messagesid,"smsNumber":SMSno});
         });
@@ -78,7 +79,7 @@ app.post("/twilioconfiq",(req,res)=>{
     //     .then((message) => console.log(message.sid));
     // console.log("hello world");
     //res.send({ status: "SMS Send Successfully", phonenumber, twilionumber, twilioSID, twilioauthtoken, templatemessage,messagesid});
-    //res.send({status: "SMS Send Successfully",sendSMSinfo});
+    res.send({status: "SMS Send Successfully",sendSMSinfo});
 
 })
 

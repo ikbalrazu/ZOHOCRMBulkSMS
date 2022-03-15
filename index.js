@@ -54,45 +54,19 @@ app.post("/twilioconfiq", (req,res)=>{
     console.log(twilioauthtoken);
     console.log(templatemessage);
     
-    const client = new twilio(twilioSID, twilioauthtoken);
-
-    let sendSMSinfo = [];
-
-    
-
-        
-        //for(let i=0;i<phonenumber.length;i++){
-           //var data = getSMSdata(client.messages,phonenumber,templatemessage,twilionumber,[]);           
-            //sendSMSinfo.push(d);
-        //}
-
-        
-//             data.then(function(r){
-// console.log('aaaaaaaaa',r)
-//             });
-
-        //res.json(sendSMSinfo);
-        
-
-
-    // let y = new Promise((resolve,reject)=>{
-    //     res.json(sendSMSinfo);
-    //     console.log("from y: ",sendSMSinfo);
-    // })
-
-    //await x;
-    //await y;
-
-    for(let i=0;i<phonenumber.length;i++){
+    for(let i=0; i<phonenumber.length; i++){
+        const client = new twilio(twilioSID, twilioauthtoken);
         client.messages.create({
             body: templatemessage,
-            to:phonenumber[i],
+            to: phonenumber[i],
             from: twilionumber
         })
         .then(function(message){
-            console.log("phoene: ",phonenumber[i], "sid: ",message.sid);
+            console.log(message.sid);
+            res.send({status: "Success"});
+            //console.log("phoene: ",phonenumber[i], "sid: ",message.sid);
             //var messagesid = message.sid;
-            sendSMSinfo.push({"Phone":phonenumber[i],"MessageSID":message.sid});
+            // sendSMSinfo.push({"Phone":phonenumber[i],"MessageSID":message.sid});
             // var SMSno = phonenumber[i];
             //res.json(message);
             //res.json({status: "SMS Send Successfully", phone: phonenumber[i], twilionumber, twilioSID, twilioauthtoken, templatemessage, messagesid})
@@ -100,52 +74,7 @@ app.post("/twilioconfiq", (req,res)=>{
         });
     }
 
-    // res.writeHead(200, {'Content-Type': 'application/json'});
-    //res.end(JSON.stringify(sendSMSinfo));
-    res.send({status: "Success",sendSMSinfo});
-
-
-    // const client = new twilio(twilioSID, twilioauthtoken);
-    // client.messages
-    //     .create({
-    //         body: message,
-    //         to: phonenumber, // Text this number
-    //         from: twilionumber
-    //     })
-    //     .then((message) => console.log(message.sid));
-    // console.log("hello world");
-    //res.send({ status: "SMS Send Successfully", phonenumber, twilionumber, twilioSID, twilioauthtoken, templatemessage,messagesid});
-    //res.send({status: "SMS Send Successfully",sendSMSinfo});
-
 });
-
-
-// let getSMSdata = async(api,to_numbers,templatemessage,twilionumber,data)=>{    
-//     var dt = data;    
-//     if(to_numbers.length >= 1){               
-//       var dd = await api.create({
-//             body: templatemessage,
-//             to:to_numbers[1],
-//             from: twilionumber
-//         });
-//         dt.push({
-//             to_number:dd.to,
-//             sid:dd.sid
-//         }); 
-//         to_numbers.shift();
-//         getSMSdata(api,to_numbers,templatemessage,twilionumber,dt);
-//         return dt;
-//     }else{     
-//         return dt;
-//     }
-// };
-
-
-
-// app.post("/testinvercel",(req,res)=>{
-//     const { name, location } = req.body;
-//     res.json({ status: "User created successfully by iqbal", name, location });
-// })
 
 app.get("/sendsms", (req, res) => {
     var name="iqbal"

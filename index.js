@@ -44,60 +44,65 @@ app.get("/",(req,res)=>{
     res.send("Bulk SMS with Twilio");
 })
 
-app.post("/twilioconfiq",async (req,res)=>{
+
+
+app.post("/twilioconfiq", (req,res)=>{
     const {phonenumber,twilionumber,twilioSID,twilioauthtoken,templatemessage} = req.body;
     console.log(phonenumber);
     console.log(twilionumber);
     console.log(twilioSID);
     console.log(twilioauthtoken);
     console.log(templatemessage);
-    let sendSMSinfo = [];
+    
     const client = new twilio(twilioSID, twilioauthtoken);
 
-    let x = new Promise((resolve,reject)=>{
+    let sendSMSinfo = [];
 
-        for(let i=0;i<phonenumber.length;i++){
-            client.messages.create({
-                body: templatemessage,
-                to:phonenumber[i],
-                from: twilionumber
-            })
-            .then(function(message){
-                console.log("phoene: ",phonenumber[i], "sid: ",message.sid);
-                //var messagesid = message.sid;
-                sendSMSinfo.push({"Phone":phonenumber[i],"MessageSID":message.sid});
-                // var SMSno = phonenumber[i];
-                // res.json(message);
-                //res.json({status: "SMS Send Successfully", phone: phonenumber[i], twilionumber, twilioSID, twilioauthtoken, templatemessage, messagesid})
-                //sendSMSinfo.push({"msgSID":messagesid,"smsNumber":SMSno});
-            });
-        }
+    
 
-    })
+        
+        //for(let i=0;i<phonenumber.length;i++){
+           //var data = getSMSdata(client.messages,phonenumber,templatemessage,twilionumber,[]);           
+            //sendSMSinfo.push(d);
+        //}
 
-    let y = new Promise((resolve,reject)=>{
-        res.send(JSON.stringify(sendSMSinfo));
-    })
+        
+//             data.then(function(r){
+// console.log('aaaaaaaaa',r)
+//             });
 
-    await x;
-    await y;
+        //res.json(sendSMSinfo);
+        
 
-    // for(let i=0;i<phonenumber.length;i++){
-    //     client.messages.create({
-    //         body: templatemessage,
-    //         to:phonenumber[i],
-    //         from: twilionumber
-    //     })
-    //     .then(function(message){
-    //         console.log("phoene: ",phonenumber[i], "sid: ",message.sid);
-    //         //var messagesid = message.sid;
-    //         sendSMSinfo.push({"Phone":phonenumber[i],"MessageSID":message.sid});
-    //         // var SMSno = phonenumber[i];
-    //         // res.json(message);
-    //         //res.json({status: "SMS Send Successfully", phone: phonenumber[i], twilionumber, twilioSID, twilioauthtoken, templatemessage, messagesid})
-    //         //sendSMSinfo.push({"msgSID":messagesid,"smsNumber":SMSno});
-    //     });
-    // }
+
+    // let y = new Promise((resolve,reject)=>{
+    //     res.json(sendSMSinfo);
+    //     console.log("from y: ",sendSMSinfo);
+    // })
+
+    //await x;
+    //await y;
+
+    for(let i=0;i<phonenumber.length;i++){
+        client.messages.create({
+            body: templatemessage,
+            to:phonenumber[i],
+            from: twilionumber
+        })
+        .then(function(message){
+            console.log("phoene: ",phonenumber[i], "sid: ",message.sid);
+            //var messagesid = message.sid;
+            sendSMSinfo.push({"Phone":phonenumber[i],"MessageSID":message.sid});
+            // var SMSno = phonenumber[i];
+            //res.json(message);
+            //res.json({status: "SMS Send Successfully", phone: phonenumber[i], twilionumber, twilioSID, twilioauthtoken, templatemessage, messagesid})
+            //sendSMSinfo.push({"msgSID":messagesid,"smsNumber":SMSno});
+        });
+    }
+
+    // res.writeHead(200, {'Content-Type': 'application/json'});
+    //res.end(JSON.stringify(sendSMSinfo));
+    res.send({status: "Success",sendSMSinfo});
 
 
     // const client = new twilio(twilioSID, twilioauthtoken);
@@ -110,9 +115,31 @@ app.post("/twilioconfiq",async (req,res)=>{
     //     .then((message) => console.log(message.sid));
     // console.log("hello world");
     //res.send({ status: "SMS Send Successfully", phonenumber, twilionumber, twilioSID, twilioauthtoken, templatemessage,messagesid});
-    res.send({status: "SMS Send Successfully",sendSMSinfo});
+    //res.send({status: "SMS Send Successfully",sendSMSinfo});
 
-})
+});
+
+
+// let getSMSdata = async(api,to_numbers,templatemessage,twilionumber,data)=>{    
+//     var dt = data;    
+//     if(to_numbers.length >= 1){               
+//       var dd = await api.create({
+//             body: templatemessage,
+//             to:to_numbers[1],
+//             from: twilionumber
+//         });
+//         dt.push({
+//             to_number:dd.to,
+//             sid:dd.sid
+//         }); 
+//         to_numbers.shift();
+//         getSMSdata(api,to_numbers,templatemessage,twilionumber,dt);
+//         return dt;
+//     }else{     
+//         return dt;
+//     }
+// };
+
 
 
 // app.post("/testinvercel",(req,res)=>{

@@ -49,12 +49,16 @@ app.get("/",(req,res)=>{
 app.post("/twilioconfiq", (req,res)=>{
     const {phonenumber,twilionumber,twilioSID,twilioauthtoken,templatemessage} = req.body;
     console.log(phonenumber);
+    // console.log("phone number 0: ",phonenumber[0]);
+    // console.log("phone number 1: ",phonenumber[1]);
+    //console.log("length: ",phonenumber.length);
     console.log(twilionumber);
     console.log(twilioSID);
     console.log(twilioauthtoken);
     console.log(templatemessage);
     
     for(let i=0; i<phonenumber.length; i++){
+        //console.log("phone number: ",phonenumber[i]);
         const client = new twilio(twilioSID, twilioauthtoken);
         client.messages.create({
             body: templatemessage,
